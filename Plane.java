@@ -7,18 +7,22 @@ public class Plane {
             seat[i] = new PlaneSeat(i + 1);
         }
     }
-    private PlaneSeat[] sortSeats(){
-        for(int i = 0; i < seat.length - 1; i++) {
-            for(int j = 0; j < seat.length - i - 1; j++){
-                if(seat[j].getCustomerID() > seat[j + 1].getCustomerID())
-                {
-                    PlaneSeat temp = seat[j];
-                    seat[j] = seat[j + 1];
-                    seat[j + 1] = temp;
+    private PlaneSeat[] sortSeats() {
+        PlaneSeat[] sorted = new PlaneSeat[12];
+        for (int i = 0; i < 12; i++) {
+            sorted[i] = seat[i];
+        }
+
+        for (int i = 0; i < sorted.length - 1; i++) {
+            for (int j = 0; j < sorted.length - i - 1; j++) {
+                if (sorted[j].getCustomerID() > sorted[j + 1].getCustomerID()) {
+                    PlaneSeat temp = sorted[j];
+                    sorted[j] = sorted[j + 1];
+                    sorted[j + 1] = temp;
                 }
             }
         }
-        return seat; 
+        return sorted;
     }
     public void showNumEmptySeats(){
         System.out.println("Number of empty seats is " + numEmptySeat);
