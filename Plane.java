@@ -8,22 +8,31 @@ public class Plane {
         }
     }
     private PlaneSeat[] sortSeats() {
-        PlaneSeat[] sorted = new PlaneSeat[12];
-        for (int i = 0; i < 12; i++) {
-            sorted[i] = seat[i];
-        }
+    PlaneSeat[] sorted = new PlaneSeat[12];
 
-        for (int i = 0; i < sorted.length - 1; i++) {
-            for (int j = 0; j < sorted.length - i - 1; j++) {
-                if (sorted[j].getCustomerID() > sorted[j + 1].getCustomerID()) {
-                    PlaneSeat temp = sorted[j];
-                    sorted[j] = sorted[j + 1];
-                    sorted[j + 1] = temp;
-                }
+    // Copy only the references (not new objects)
+    for (int i = 0; i < 12; i++) {
+        sorted[i] = seat[i];
+    }
+
+    // Bubble sort on the copied array
+    for (int i = 0; i < sorted.length - 1; i++) {
+        for (int j = 0; j < sorted.length - i - 1; j++) {
+            // Skip unassigned seats — they should float to the end
+            if (!sorted[j].isOccupied() || !sorted[j + 1].isOccupied()) continue;
+
+            if (sorted[j].getCustomerID() > sorted[j + 1].getCustomerID()) {
+                PlaneSeat temp = sorted[j];
+                sorted[j] = sorted[j + 1];
+                sorted[j + 1] = temp;
             }
         }
-        return sorted;
     }
+
+    return sorted;
+}
+
+
     public void showNumEmptySeats(){
         System.out.println("Number of empty seats is " + numEmptySeat);
     }
